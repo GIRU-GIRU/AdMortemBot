@@ -22,6 +22,8 @@ namespace AdMortemBot
         [JsonProperty]
         public ulong MainChannelID { get; init; }
 
+        [JsonProperty]
+        public string CommandPrefix { get; init; }
 
     }
 }

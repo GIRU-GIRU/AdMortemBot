@@ -11,7 +11,7 @@ namespace AdMortemBot
 {
     public static class Config
     {
-        public static BotSettings _botSettings;
+        public static BotSettings _botSettings; //TODO make private + getter 
         public static BotSettings InitializeConfig()
         {
 

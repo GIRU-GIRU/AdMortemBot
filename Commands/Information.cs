@@ -56,5 +56,25 @@ namespace AdMortemBot.Commands
                 await Logger.LogMessageAsync(msg);
             }
         }
+
+
+
+        [Command("SayHello")]
+        private async Task SayHello()
+        {
+            try
+            {
+                await Context.Channel.SendMessageAsync("Hello", false);
+            }
+            catch (Exception ex)
+            {
+                LogMessage msg = new LogMessage(LogSeverity.Error, $"{ GetType().FullName }: { Logger.GetAsyncMethodName()}", ex.Message, ex);
+
+                await Logger.LogMessageAsync(msg);
+            }
+        }
+
+
+
     }
 }

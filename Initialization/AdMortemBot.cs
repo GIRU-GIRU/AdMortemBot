@@ -125,7 +125,7 @@ namespace AdMortemBot
             var context = new SocketCommandContext(_client, message);
 
             int argPos = 0;
-            if (message.HasStringPrefix("!", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
+            if (message.HasStringPrefix(Config._botSettings.CommandPrefix, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
             {
                 await _commands.ExecuteAsync(context, argPos, _services);
             }
