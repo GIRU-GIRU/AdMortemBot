@@ -68,10 +68,10 @@ namespace AdMortemBot.Reliability
                 {
                     await Logger.LogMessageAsync("Attempting to restart bot");
 
-                    var timeout = Task.Delay(_timeout);
-                    var connect = Program.RestartBot();
+                    Task timeout = Task.Delay(_timeout);
+                    Task connect = Program.RestartBot();
 
-                    var task = await Task.WhenAny(timeout, connect);
+                    Task task = await Task.WhenAny(timeout, connect);
 
                     if (task != timeout)
                     {

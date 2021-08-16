@@ -1,2 +1,1 @@
 AdMortemBot
-Honor and Glory

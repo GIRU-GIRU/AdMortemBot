@@ -15,23 +15,20 @@ namespace AdMortemBot
         DiscordSocketClient _client;
         public LoginHandler(DiscordSocketClient client)
         {
-
-                _client = client;
-            
+            _client = client;
         }
 
         internal async Task PerformReadyProcedures()
         {
             try
             {
-
                 await Domain.InitializeDomain(_client);
                 await Domain.GetLogChannel().SendMessageAsync("Bot initialized");
             }
             catch (Exception ex)
             {
-                await Logger.LogMessageAsync(
-                    new LogMessage(LogSeverity.Critical, Logger.GetAsyncMethodName(), ex.Message, ex));
+                LogMessage logMsg = new LogMessage(LogSeverity.Critical, Logger.GetAsyncMethodName(), ex.Message, ex);
+                await Logger.LogMessageAsync(logMsg);
             }
         }
 
@@ -39,14 +36,14 @@ namespace AdMortemBot
         {
             try
             {
-
+                throw new NotImplementedException(); 
             }
             catch (Exception ex)
             {
-                await Logger.LogMessageAsync(
-                                    new LogMessage(LogSeverity.Critical, Logger.GetAsyncMethodName(), ex.Message, ex));
+                LogMessage logMsg = new LogMessage(LogSeverity.Critical, Logger.GetAsyncMethodName(), ex.Message, ex);
+                await Logger.LogMessageAsync(logMsg);
             }
-        
+
 
         }
     }

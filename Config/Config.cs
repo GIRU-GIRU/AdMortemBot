@@ -11,23 +11,24 @@ namespace AdMortemBot
 {
     public static class Config
     {
-        public static BotSettings BotSettings;
-        public static void InitializeConfig()
+        public static BotSettings _botSettings;
+        public static BotSettings InitializeConfig()
         {
 
-            var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var folder = "Config";
-            var fileName = "Config.Json";
+            string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string folder = "Config";
+            string fileName = "AdMortemBotConfig.Json";
 
-            var path = Path.Combine(assemblyLocation, folder, fileName);
+            string path = Path.Combine(assemblyLocation, folder, fileName);
 
 
             using (StreamReader file = File.OpenText(path))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                BotSettings = (BotSettings)serializer.Deserialize(file, typeof(BotSettings));
+                _botSettings = (BotSettings)serializer.Deserialize(file, typeof(BotSettings));
             }
 
+            return _botSettings;
         }
     }
 }

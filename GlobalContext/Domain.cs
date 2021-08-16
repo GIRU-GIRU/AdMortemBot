@@ -29,10 +29,9 @@ namespace AdMortemBot
             catch (Exception ex)
             {
                 LogMessage logMsg = new LogMessage(LogSeverity.Critical, MethodBase.GetCurrentMethod().Name, ex.Message, ex);
-
+                Console.WriteLine("");
                 await Logger.LogMessageAsync(logMsg);
             }
-
         }
 
 
@@ -41,9 +40,9 @@ namespace AdMortemBot
         {
             bool assignmentSuccessful = false;
 
-            _guild = client.GetGuild(Config.BotSettings.GuildID);
-            _logChannel = _guild.GetChannel(Config.BotSettings.LogChannelID) as ITextChannel;
-            _MainChannel = _guild.GetChannel(Config.BotSettings.MainChannelID) as ITextChannel;
+            _guild = client.GetGuild(Config._botSettings.GuildID);
+            _logChannel = _guild.GetChannel(Config._botSettings.LogChannelID) as ITextChannel;
+            _MainChannel = _guild.GetChannel(Config._botSettings.MainChannelID) as ITextChannel;
 
             if (_logChannel != null && _guild != null)
             {

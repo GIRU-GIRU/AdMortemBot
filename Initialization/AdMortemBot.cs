@@ -25,7 +25,7 @@ namespace AdMortemBot
         {
             DiscordSocketConfig botConfig = new DiscordSocketConfig()
             {
-                MessageCacheSize = Config.BotSettings.MessageCacheSize,
+                MessageCacheSize = Config._botSettings.MessageCacheSize,
                 AlwaysDownloadUsers = true,
                 DefaultRetryMode = RetryMode.RetryTimeouts,
                 LogLevel = LogSeverity.Verbose,
@@ -82,7 +82,7 @@ namespace AdMortemBot
             {
                 while (!token.IsCancellationRequested)
                 {
-                    await _client.LoginAsync(TokenType.Bot, Config.BotSettings.BotToken);
+                    await _client.LoginAsync(TokenType.Bot, Config._botSettings.BotToken);
                     await _client.StartAsync();
 
                     await Task.Delay(-1, token);

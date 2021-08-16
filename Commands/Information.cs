@@ -54,9 +54,7 @@ namespace AdMortemBot.Commands
                 LogMessage msg = new LogMessage(LogSeverity.Error, $"{ GetType().FullName }: { Logger.GetAsyncMethodName()}", ex.Message, ex);
 
                 await Logger.LogMessageAsync(msg);
-
             }
         }
-
     }
 }

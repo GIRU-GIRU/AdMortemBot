@@ -10,9 +10,7 @@ namespace AdMortemBot
     {
         public static async Task Sanitize(SocketGuildUser arg)
         {
-
+            throw new NotImplementedException();
         }
-
-
     }
 }

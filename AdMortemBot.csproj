@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Config\AdMortemBotConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Config\Config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -11,7 +11,7 @@ namespace AdMortemBot.Logging
 
         public async static Task OnExecutedCommand(Discord.Optional<CommandInfo> arg1, ICommandContext arg2, IResult arg3)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
