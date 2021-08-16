@@ -386,8 +386,4 @@ MigrationBackup/
 # IntelliJ
 /out/
 
-
-
-/Config/AdMortemBotConfig.json
-Config/AdMortemBotConfig.json
 Config/AdMortemBotConfig.json
