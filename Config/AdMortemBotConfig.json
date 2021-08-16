@@ -1,7 +1,7 @@
 {
   "MessageCacheSize": 123,
   "GuildID": 12312321,
-  "BotToken": "BotToken",
+  "BotToken": "oauth",
   "LogChannelID": 123123123,
   "MainChannelID": 1231232132132131232
 }
