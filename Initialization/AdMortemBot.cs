@@ -25,7 +25,7 @@ namespace AdMortemBot
         {
             DiscordSocketConfig botConfig = new DiscordSocketConfig()
             {
-                MessageCacheSize = Config._botSettings.MessageCacheSize,
+                MessageCacheSize = Math.Clamp(Config._botSettings.MessageCacheSize, 0, 500),
                 AlwaysDownloadUsers = true,
                 DefaultRetryMode = RetryMode.RetryTimeouts,
                 LogLevel = LogSeverity.Verbose,
