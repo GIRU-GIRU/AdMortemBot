@@ -14,10 +14,15 @@ namespace AdMortemBot.Commands
     {
 
         [Command("avatar")]
-        private async Task PullAvatarAsync(IGuildUser user)
+        private async Task PullAvatarAsync(SocketUser user = null)
         {
             try
             {
+                if (user == null)
+                {
+                    user = Context.Message.Author;
+                }
+
                 string avatarURL = user.GetAvatarUrl(format: ImageFormat.Auto, 1024);
 
                 if (avatarURL is null)
@@ -25,6 +30,8 @@ namespace AdMortemBot.Commands
                     await Context.Message.Channel.SendMessageAsync($"{user.Mention} does not have a profile picture");
                     return;
                 }
+
+
                 var embed = new EmbedBuilder();
                 embed.WithColor(new Color(0, 204, 255));
                 embed.WithTitle($"{user.Username}'s avatar");

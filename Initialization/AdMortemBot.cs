@@ -1,6 +1,7 @@
 ﻿using AdMortemBot;
 using AdMortemBot.Logging;
 using AdMortemBot.Reliability;
+using AdMortemBot.Sanitization;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -98,7 +99,7 @@ namespace AdMortemBot
 
         public static async Task RegisterCommandAsync()
         {
-            _client.MessageReceived += HandleCommandAsync;
+            _client.MessageReceived += HandleMessageReceived;
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
 
@@ -117,23 +118,26 @@ namespace AdMortemBot
 
             await Logger.LogMessageAsync($"Disconnected from Discord: {ex.Message}");
         }
-        private static async Task HandleCommandAsync(SocketMessage arg)
+
+
+        private static int _argPos = 0;
+        private static async Task HandleMessageReceived(SocketMessage arg)
         {
             var message = arg as SocketUserMessage;
 
-            var hasProfanity = UserSanitizer.CheckProfanity(message.Content);
-            if (hasProfanity)
+            bool containsProfanity = await MessageFilter.CheckProfanity(message.Content);
+
+
+            
+            if (!containsProfanity)//We dont accept naughty commands.
             {
-                var ctx = new SocketCommandContext(_client, message);
-                await ctx.Message.Channel.SendMessageAsync($"{ctx.User.Mention} you have been warned");
+                if (!message.Author.IsBot && message.HasStringPrefix(Config._botSettings.CommandPrefix, ref _argPos))
+                {
+                    var context = new SocketCommandContext(_client, message);
+                    await _commands.ExecuteAsync(context, _argPos, _services);
+                }
             }
 
-
-            int argPos = 0;
-            if (message.Author.IsBot || !message.HasStringPrefix(Config._botSettings.CommandPrefix, ref argPos)) return;
-            
-            var context = new SocketCommandContext(_client, message);
-            await _commands.ExecuteAsync(context, argPos, _services);
         }
     }
 }
