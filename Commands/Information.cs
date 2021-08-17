@@ -74,7 +74,36 @@ namespace AdMortemBot.Commands
             }
         }
 
+        [Command("Input")]
+        private async Task Input(params String[] stringArray)
+        {
+            try
+            {
+                await Context.Channel.SendMessageAsync(string.Join(" ", stringArray), false);
+            }
+            catch (Exception ex)
+            {
+                LogMessage msg = new LogMessage(LogSeverity.Error, $"{ GetType().FullName }: { Logger.GetAsyncMethodName()}", ex.Message, ex);
 
+                await Logger.LogMessageAsync(msg);
+            }
+        }
 
+        [Command("Cat")]
+        private async Task Cat(params String[] stringArray)
+        {
+            try
+            {
+                await Context.Channel.SendMessageAsync("https://media.discordapp.net/attachments/793277231404548136/868717149915578418/image0-14.gif", false);
+                Task.Delay(3000).Wait();
+                await Context.Channel.SendMessageAsync("np problem", false);
+            }
+            catch (Exception ex)
+            {
+                LogMessage msg = new LogMessage(LogSeverity.Error, $"{ GetType().FullName }: { Logger.GetAsyncMethodName()}", ex.Message, ex);
+
+                await Logger.LogMessageAsync(msg);
+            }
+        }
     }
 }

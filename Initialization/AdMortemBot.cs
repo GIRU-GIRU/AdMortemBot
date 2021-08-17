@@ -29,7 +29,7 @@ namespace AdMortemBot
                 AlwaysDownloadUsers = true,
                 DefaultRetryMode = RetryMode.RetryTimeouts,
                 LogLevel = LogSeverity.Verbose,
-                ExclusiveBulkDelete = true,
+                ExclusiveBulkDelete = true
             };
 
 
@@ -96,7 +96,6 @@ namespace AdMortemBot
             await Task.Delay(-1);
         }
 
-
         public static async Task RegisterCommandAsync()
         {
             _client.MessageReceived += HandleCommandAsync;
@@ -121,14 +120,20 @@ namespace AdMortemBot
         private static async Task HandleCommandAsync(SocketMessage arg)
         {
             var message = arg as SocketUserMessage;
-            if (message.Author.IsBot) return;
-            var context = new SocketCommandContext(_client, message);
+
+            var hasProfanity = UserSanitizer.CheckProfanity(message.Content);
+            if (hasProfanity)
+            {
+                var ctx = new SocketCommandContext(_client, message);
+                await ctx.Message.Channel.SendMessageAsync($"{ctx.User.Mention} you have been warned");
+            }
+
 
             int argPos = 0;
-            if (message.HasStringPrefix(Config._botSettings.CommandPrefix, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))
-            {
-                await _commands.ExecuteAsync(context, argPos, _services);
-            }
+            if (message.Author.IsBot || !message.HasStringPrefix(Config._botSettings.CommandPrefix, ref argPos)) return;
+            
+            var context = new SocketCommandContext(_client, message);
+            await _commands.ExecuteAsync(context, argPos, _services);
         }
     }
 }
