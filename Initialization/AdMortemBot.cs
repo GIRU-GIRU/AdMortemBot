@@ -127,15 +127,18 @@ namespace AdMortemBot
 
             bool containsProfanity = await MessageFilter.CheckProfanity(message.Content);
 
+            var context = new SocketCommandContext(_client, message);
 
-            
             if (!containsProfanity)//We dont accept naughty commands.
             {
                 if (!message.Author.IsBot && message.HasStringPrefix(Config._botSettings.CommandPrefix, ref _argPos))
                 {
-                    var context = new SocketCommandContext(_client, message);
                     await _commands.ExecuteAsync(context, _argPos, _services);
                 }
+            }
+            else //Evil deeds must be punished.
+            {
+                await context.Channel.SendMessageAsync($"Do you kiss your mother with that mouth, {context.User.Mention}?", false);
             }
 
         }
